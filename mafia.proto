@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+// import "google/protobuf/empty.proto";
+
+option go_package = "./mafia";
+
+package mafia;
+
+enum ERole {
+  R_Citizen = 0;
+  R_Mafia = 1;
+  R_Commissioner = 2;
+}
+
+
+message TPlayer {
+    string Login = 1;
+    int64 SessionID = 2;
+}
+
+message TVote {
+  TPlayer Player = 1;
+  TPlayer Target = 2;
+}
+
+// Определение сервиса "Mafia"
+service Mafia {
+  // rpc JoinGame(TPlayer) returns (google.protobuf.Empty) {}
+  // rpc FinishDay(TPlayer) returns (google.protobuf.Empty) {}
+  rpc JoinGame(TPlayer) returns (None) {}
+  rpc FinishDay(TPlayer) returns (None) {}
+}
+
+message None {}
