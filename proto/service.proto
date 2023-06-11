@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package Mafia;
+option go_package = "./proto";
+
+service Mafia {
+  rpc Connect(ClientInfo) returns (ClientId) {};
+  rpc Disconnect(ClientId) returns (EmptyMsg) {};
+  rpc SubscribeToNotifications(ClientId) returns (stream Notification);
+  rpc ShowPlayersList(EmptyMsg) returns (PlayersList);
+  rpc Vote(ClientReq) returns (EmptyMsg);
+  rpc EndDay(ClientId) returns (EmptyMsg);
+  rpc Expose(ClientId) returns (EmptyMsg);
+  rpc Chat(ChatMsg) returns (EmptyMsg);
+}
+
+message EmptyMsg {
+}
+
+message ClientId {
+  uint64 id = 1;
+}
+
+message ClientInfo {
+  string name = 1;
+}
+
+message ClientReq {
+  ClientId id = 1;
+  ClientInfo target = 2;
+}
+
+message Notification {
+  string info = 1;
+}
+
+message ChatMsg {
+  ClientId id = 1;
+  string msg = 2;
+}
+
+message PlayersList {
+  repeated string players = 1;
+}
